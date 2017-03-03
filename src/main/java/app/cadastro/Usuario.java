@@ -1,4 +1,4 @@
-package app;
+package app.cadastro;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

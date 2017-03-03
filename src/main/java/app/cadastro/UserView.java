@@ -1,41 +1,42 @@
-package app;
+package app.cadastro;
 
 import org.primefaces.event.SelectEvent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.util.List;
 
 /**
  * Created by assis on 01/03/17.
  */
-@ViewScoped
-@ManagedBean(name = "userView")
+@Component
+@Scope("request")
 public class UserView {
-    @ManagedProperty("#{usuarioRepository}")
+    @Autowired
     private UsuarioRepository repository;
 
-    private Usuario usuario;
+    private Usuario usuario = new Usuario();
 
     public void onRowSelect(SelectEvent event) {
         FacesMessage msg = new FacesMessage("Usuario Selected", ((Usuario) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public void novo(){
+    public void novo() throws Exception {
         usuario = new Usuario();
     }
 
     public void salvar(){
-        repository.create(usuario);
+        repository.save(usuario);
+
+        usuario = null;
     }
 
     public List<Usuario> getUsuarios() {
-        System.out.println("getUsuarios");
-        return repository.findAll();
+     return repository.findAll();
     }
 
     public Usuario getUsuario() {
@@ -44,9 +45,5 @@ public class UserView {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    public void setRepository(UsuarioRepository repository) {
-        this.repository = repository;
     }
 }

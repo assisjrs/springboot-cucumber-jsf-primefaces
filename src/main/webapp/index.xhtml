@@ -16,9 +16,8 @@
 
     <p:dataTable var="usuario" value="#{userView.usuarios}" paginator="true" rows="10"
                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{userView.usuario}" lazy="true">
+                 rowsPerPageTemplate="5,10,15" lazy="true" id="dataTable">
 
-        <p:ajax event="rowSelect" listener="#{userView.onRowSelect}" update=":usuarioDetail" oncomplete="PF('usuarioDialog').show()" />
         <p:column headerText="Id" sortBy="#{usuario.id}" filterBy="#{usuario.id}">
             <h:outputText value="#{usuario.id}" />
         </p:column>
@@ -30,26 +29,28 @@
         </p:column>
     </p:dataTable>
 
-    <p:commandLink onclick="PF('usuarioDialog').show()"  action="#{userView.novo}" >Novo Usuário</p:commandLink>
+    <p:commandLink onclick="PF('usuarioDialog').show()" immediate="false" update="usuarioForm" action="#{userView.novo}">Novo Usuário</p:commandLink>
 
-    <p:dialog header="Usuario Detail" widgetVar="usuarioDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-        <p:outputPanel id="usuarioDetail" style="text-align:center;">
-            <p:panelGrid  columns="2" columnClasses="label,value">
+    <p:dialog id="usuarioDialog" header="Usuario Detail" widgetVar="usuarioDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <h:form id="usuarioForm">
+            <p:outputPanel id="usuarioDetail" style="text-align:center;">
+                <p:panelGrid  columns="2" columnClasses="label,value">
 
-                <h:outputText value="Id:" />
-                <h:outputText value="#{userView.usuario.id}" />
+                    <h:outputText value="Id:" />
+                    <h:outputText value="#{userView.usuario.id}" />
 
-                <h:outputText value="Nome" />
-                <h:inputText value="#{userView.usuario.nome}" />
+                    <h:outputText value="Nome" />
+                    <h:inputText value="#{userView.usuario.nome}" />
 
-                <h:outputText value="Email" />
-                <h:inputText value="#{userView.usuario.email}" />
+                    <h:outputText value="Email" />
+                    <h:inputText value="#{userView.usuario.email}" />
 
-            </p:panelGrid>
+                </p:panelGrid>
 
-            <p:commandButton action="#{userView.salvar}" value="Salvar" onclick="PF('usuarioDialog').hide()" />
-            <p:commandButton onclick="PF('usuarioDialog').hide()" value="Cancelar" />
-        </p:outputPanel>
+                <p:commandButton action="#{userView.salvar}" value="Salvar" onclick="PF('usuarioDialog').hide()" update=":dataTable" />
+                <p:commandButton onclick="PF('usuarioDialog').hide()" value="Cancelar" />
+            </p:outputPanel>
+        </h:form>
     </p:dialog>
 </h:body>
 </html>
