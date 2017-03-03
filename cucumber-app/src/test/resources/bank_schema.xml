@@ -4,26 +4,18 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
     <changeSet id="1" author="root">
-        <createTable tableName="Usuario">
-            <column name="id" type="int">
-                <constraints primaryKey="true" nullable="false"/>
+        <createTable tableName="usuario">
+            <column name="id" type="int" autoIncrement="true" incrementBy="1" startWith="100">
+                <constraints primaryKey="true" nullable="false" />
             </column>
-
             <column name="nome" type="varchar(255)">
-                <constraints nullable="false" unique="true" />
+                <constraints nullable="false"/>
             </column>
-
             <column name="email" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
-
-        <addAutoIncrement columnDataType="int"
-                          columnName="id"
-                          incrementBy="1"
-                          schemaName="public"
-                          startWith="100"
-                          tableName="Usuario"/>
     </changeSet>
 </databaseChangeLog>
