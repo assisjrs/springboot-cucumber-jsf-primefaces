@@ -2,6 +2,6 @@ import org.javalite.activejdbc.Base;
 
 public class Leiloes {
     public static void main(String... args){
-        Base.open("org.hsqldb.jdbcDriver", "jdbc:hsqldb:file:./../leiloes/leiloes.db", "sa", "");
+        Base.open("com.mysql.cj.jdbc.Driver", "jdbc:mysql://localhost:3306/leiloes?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "cs!rede123");
     }
 }
