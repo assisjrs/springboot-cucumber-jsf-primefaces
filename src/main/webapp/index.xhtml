@@ -1,20 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
+    <title>Cadastro de usuários</title>
 </h:head>
 <h:body>
-	<h1>Hello World PrimeFaces</h1>
 
-	<h:form>
-	<p:editor value="#{editor.value}" />
-	</h:form>
+    <h1>Todos os Usuários</h1>
 
+    <h:messages />
+
+    <p:dataTable var="usuario" value="#{userView.usuarios}" paginator="true" rows="10"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{userView.usuario}" lazy="true">
+
+        <p:ajax event="rowSelect" listener="#{userView.onRowSelect}" update=":usuarioDetail" oncomplete="PF('usuarioDialog').show()" />
+        <p:column headerText="Id" sortBy="#{usuario.id}" filterBy="#{usuario.id}">
+            <h:outputText value="#{usuario.id}" />
+        </p:column>
+        <p:column headerText="Nome" sortBy="#{usuario.nome}" filterBy="#{usuario.nome}">
+            <h:outputText value="#{usuario.nome}" />
+        </p:column>
+        <p:column headerText="Email" sortBy="#{usuario.email}" filterBy="#{usuario.email}">
+            <h:outputText value="#{usuario.email}" />
+        </p:column>
+    </p:dataTable>
+
+    <p:commandLink onclick="PF('usuarioDialog').show()"  action="#{userView.novo}" >Novo Usuário</p:commandLink>
+
+    <p:dialog header="Usuario Detail" widgetVar="usuarioDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="usuarioDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" columnClasses="label,value">
+
+                <h:outputText value="Id:" />
+                <h:outputText value="#{userView.usuario.id}" />
+
+                <h:outputText value="Nome" />
+                <h:inputText value="#{userView.usuario.nome}" />
+
+                <h:outputText value="Email" />
+                <h:inputText value="#{userView.usuario.email}" />
+
+            </p:panelGrid>
+
+            <p:commandButton action="#{userView.salvar}" value="Salvar" onclick="PF('usuarioDialog').hide()" />
+            <p:commandButton onclick="PF('usuarioDialog').hide()" value="Cancelar" />
+        </p:outputPanel>
+    </p:dialog>
 </h:body>
 </html>

@@ -1,0 +1,59 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+jar {
+    baseName = 'leiloes'
+}
+
+repositories {
+    jcenter()
+    mavenLocal()
+    maven {
+        url "http://repo1.maven.org/maven2/"
+    }
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+    mavenCentral()
+    maven {
+        url "https://mvnrepository.com/"
+    }
+    maven {
+        url "http://repository.primefaces.org"
+    }
+}
+
+dependencies {
+
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.5'
+
+// https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.8.Final'
+// https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.4.0.Final'
+// https://mvnrepository.com/artifact/joda-time/joda-time
+    compile group: 'joda-time', name: 'joda-time', version: '2.9.7'
+// https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream
+    compile group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.9'
+
+    providedCompile 'javax.servlet:servlet-api:2.5'
+    compile 'com.sun.faces:jsf-api:2.2.5'
+    compile 'com.sun.faces:jsf-impl:2.2.5'
+
+    //compile 'javax.servlet.jsp:jsp-api:2.2'
+    //compile 'org.glassfish.web:el-impl:2.2'
+    compile 'org.primefaces:primefaces:4.0'
+    compile 'org.primefaces.themes:bootstrap:1.0.10'
+
+// https://mvnrepository.com/artifact/org.mortbay.jetty/jsp-api-2.1
+    compile group: 'org.mortbay.jetty', name: 'jsp-api-2.1', version: '6.1.14'
+// https://mvnrepository.com/artifact/org.mortbay.jetty/jsp-2.1
+    compile group: 'org.mortbay.jetty', name: 'jsp-2.1', version: '6.1.14'
+// https://mvnrepository.com/artifact/org.mortbay.jetty/jetty
+    compile group: 'org.mortbay.jetty', name: 'jetty', version: '6.1.26'
+
+// https://mvnrepository.com/artifact/br.com.caelum/vraptor
+    compile group: 'br.com.caelum', name: 'vraptor', version: '3.4.0'
+}
