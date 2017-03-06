@@ -1,5 +1,6 @@
 package app.cadastro;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -30,11 +31,12 @@ public class UserView {
     }
 
     public void salvar(){
-        if(usuario.getNome().equals("") || usuario.getNome() == null){
+        if(usuario == null || usuario.getNome() == null || "".equals(usuario.getNome().trim())){
             FacesContext.getCurrentInstance().addMessage(null,  new FacesMessage("Nome obrigatorio!"));
         }else
         {
             repository.save(usuario);
+            RequestContext.getCurrentInstance().execute("PF('usuarioDialog').hide()");
         }
         usuario = null;
     }

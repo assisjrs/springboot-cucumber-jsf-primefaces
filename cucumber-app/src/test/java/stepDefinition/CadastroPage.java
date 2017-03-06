@@ -36,13 +36,13 @@ public class CadastroPage {
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("usuarioForm")));
 
-        final WebElement nomeInput = driver.findElement(By.className("usuario.nome"));
+        final WebElement nomeInput = driver.findElement(By.xpath("//*[contains(@id,'usuarioForm')]/tbody/tr[2]/td[2]/input"));
         nomeInput.sendKeys(nome);
 
-        final WebElement emailInput = driver.findElement(By.className("usuario.email"));
-        nomeInput.sendKeys(email);
+        final WebElement emailInput = driver.findElement(By.xpath("//*[contains(@id,'usuarioForm')]/tbody/tr[3]/td[2]/input"));
+        emailInput.sendKeys(email);
 
-        WebElement salvar = driver.findElement(By.id("usuarioForm:salvar"));
+        WebElement salvar = driver.findElement(By.xpath("//*[contains(text(),'Salvar')]"));
 
         salvar.click();
     }
@@ -58,6 +58,8 @@ public class CadastroPage {
     }
 
     public int quantidadeUsuarios(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"dataTable\"]")));
+
         return driver.findElements(By.xpath("//table[@id='Datatable']/tbody/tr")).size();
     }
 

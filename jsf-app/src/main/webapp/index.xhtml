@@ -34,7 +34,6 @@
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <p:outputPanel id="usuarioDetail" style="text-align:center;">
                 <p:panelGrid  columns="2" columnClasses="label,value">
-
                     <h:outputText value="Id:" />
                     <h:outputText  value="#{userView.usuario.id}" />
 
@@ -43,7 +42,6 @@
 
                     <h:outputText value="Email" />
                     <h:inputText value="#{userView.usuario.email}" />
-
                 </p:panelGrid>
 
                 <p:commandButton action="#{userView.salvar}" id="salvar" value="Salvar" update=":dataTable, usuarioDetail" />

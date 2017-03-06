@@ -27,6 +27,7 @@ public class CadastroSteps {
     @Given("^o nome do usuario as \"([^\"]*)\"$")
     public void oNomeDoUsuarioAs(String nomeVazio) throws Throwable {
         cadastroPage.setNome(nomeVazio);
+        cadastroPage.setEmail("");
     }
 
     @When("^eu cadastrar o usuario$")
