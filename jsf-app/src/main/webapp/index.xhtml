@@ -39,14 +39,14 @@
                     <h:outputText  value="#{userView.usuario.id}" />
 
                     <h:outputText value="Nome" />
-                    <h:inputText id="nome" styleClass="usuario.nome" value="#{userView.usuario.nome}"   />
+                    <h:inputText value="#{userView.usuario.nome}"   />
 
                     <h:outputText value="Email" />
                     <h:inputText value="#{userView.usuario.email}" />
 
                 </p:panelGrid>
 
-                <p:commandButton action="#{userView.salvar}" id="salvar" value="Salvar" update=":dataTable, usuarioDetail" />
+                <p:commandButton action="#{userView.salvar}"  value="Salvar" update=":dataTable, usuarioDetail" />
                 <p:commandButton onclick="PF('usuarioDialog').hide()" value="Cancelar" />
             </p:outputPanel>
         </h:form>
