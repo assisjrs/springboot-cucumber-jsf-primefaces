@@ -26,6 +26,8 @@ public class CadastroPage {
 
         link.click();
 
+
+
         final WebElement nomeInput = driver.findElement(By.className("usuario.nome"));
 
         nomeInput.sendKeys(nome);
