@@ -30,8 +30,12 @@ public class UserView {
     }
 
     public void salvar(){
-        repository.save(usuario);
-
+        if(usuario.getNome().equals("") || usuario.getNome() == null){
+            FacesContext.getCurrentInstance().addMessage(null,  new FacesMessage("Nome obrigatorio!"));
+        }else
+        {
+            repository.save(usuario);
+        }
         usuario = null;
     }
 

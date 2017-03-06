@@ -11,6 +11,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.Assert.assertTrue;
 
 public class UsuariosTest {
+    public static final String ADDRESS = "http://localhost";
+    public static final String PORT = ":8083";
+    public static final String NEW_USUARIO = "/usuarios/new";
+
+
     private WebDriver driver;
 
     @Before
@@ -26,7 +31,7 @@ public class UsuariosTest {
 
     @Test
     public void campoNuloDeveSerObrigatorio() {
-        driver.get("http://localhost:8080/usuarios/new");
+        driver.get(ADDRESS+PORT+NEW_USUARIO);
         WebElement email = driver.findElement(By.name("usuario.email"));
         email.sendKeys("ronaldo2009@terra.com.br");
         email.submit();
@@ -36,7 +41,7 @@ public class UsuariosTest {
 
     @Test
     public void deveAdicionarUsuario() {
-        driver.get("http://localhost:8080/usuarios/new");
+        driver.get(ADDRESS+PORT+NEW_USUARIO);
 
         WebElement nome = driver.findElement(By.name("usuario.nome"));
         WebElement email = driver.findElement(By.name("usuario.email"));
