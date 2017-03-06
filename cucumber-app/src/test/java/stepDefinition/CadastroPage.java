@@ -58,9 +58,9 @@ public class CadastroPage {
     }
 
     public int quantidadeUsuarios(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"dataTable\"]")));
+        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"dataTable\"]")));
 
-        return driver.findElements(By.xpath("//table[@id='Datatable']/tbody/tr")).size();
+        return driver.findElements(By.xpath("//*[@id=\"dataTable_data\"]/tr")).size();
     }
 
     @Override

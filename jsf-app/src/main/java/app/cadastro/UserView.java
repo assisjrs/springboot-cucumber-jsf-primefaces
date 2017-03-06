@@ -35,8 +35,12 @@ public class UserView {
             FacesContext.getCurrentInstance().addMessage(null,  new FacesMessage("Nome obrigatorio!"));
         }else
         {
-            repository.save(usuario);
-            RequestContext.getCurrentInstance().execute("PF('usuarioDialog').hide()");
+            try {
+                repository.save(usuario);
+                RequestContext.getCurrentInstance().execute("PF('usuarioDialog').hide()");
+            }catch (Exception e){
+                FacesContext.getCurrentInstance().addMessage(null,  new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar o usuário", e.getMessage()));
+            }
         }
         usuario = null;
     }
