@@ -35,11 +35,11 @@ public class CadastroPage {
         link.click();
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("usuarioForm")));
-        final WebElement nomeInput = driver.findElement(By.className("usuario.nome"));
+        final WebElement nomeInput = driver.findElement(By.xpath("//*[contains(@id,'usuarioForm')]/tbody/tr[2]/td[2]/input"));
 
         nomeInput.sendKeys(nome);
 
-        WebElement salvar = driver.findElement(By.id("usuarioForm:salvar"));
+        WebElement salvar = driver.findElement(By.xpath("//*[contains(text(),'Salvar')]"));
 
         salvar.click();
         //nomeInput.submit();
