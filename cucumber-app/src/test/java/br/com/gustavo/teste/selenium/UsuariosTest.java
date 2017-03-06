@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 
 public class UsuariosTest {
     public static final String ADDRESS = "http://localhost";
-    public static final String PORT = ":8083";
+    public static final String PORT = ":9090";
     public static final String NEW_USUARIO = "/usuarios/new";
 
 
@@ -20,7 +20,7 @@ public class UsuariosTest {
 
     @Before
     public void inicializarBrowser() {
-        System.setProperty("webdriver.chrome.driver", "lib/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
         driver = new ChromeDriver();
     }
 

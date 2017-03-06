@@ -9,7 +9,7 @@ public class TesteChrome {
 	public static void main(String[] args) {
 		//download drive chrome http://chromedriver.storage.googleapis.com/index.html?path=2.13/
 		//set a propriedade do google chrome
-		System.setProperty("webdriver.chrome.driver", "D:\\Projetos e Servidores\\2015 Projetos\\test-selenium\\lib\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
 		WebDriver wd = new ChromeDriver();
 		
 		//passa a url do site que vamos abrir 

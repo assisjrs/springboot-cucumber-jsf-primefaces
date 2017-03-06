@@ -14,7 +14,6 @@ buildscript {
 }
 
 apply plugin: "org.liquibase.gradle"
-
 apply plugin: 'java'
 
 jar {
@@ -33,15 +32,25 @@ repositories {
 }
 
 dependencies {
+    compile 'info.cukes:cucumber-spring:1.2.5'
     compile 'info.cukes:cucumber-java:1.2.5'
     compile 'info.cukes:gherkin:2.12.2'
-
     compile 'info.cukes:cucumber-junit:1.2.5'
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.1.4.RELEASE'
-    compile group: "org.seleniumhq.selenium", name: "selenium-java", version: '2.53.1'
+
+    compile 'info.cukes:cucumber-jvm:1.2.5'
+
     compile "junit:junit:4.12"
-    compile 'net.sourceforge.cobertura:cobertura:2.1.1'
     compile 'org.mockito:mockito-all:2.0.2-beta'
+    compile 'net.sourceforge.cobertura:cobertura:2.1.1'
+    compile 'org.seleniumhq.selenium:selenium-java:2.53.1'
+
+    compile 'org.dbunit:dbunit:2.5.3'
+
+    compile 'org.springframework:spring-test:4.3.2.RELEASE'
+    compile 'org.springframework:spring-tx:4.3.2.RELEASE'
+
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.1.4.RELEASE'
+
     compile 'mysql:mysql-connector-java:6.0.5'
 
     compile 'org.javalite:activejdbc:1.4.13.j7'
@@ -56,21 +65,8 @@ liquibase {
             username 'root'
             password 'cs!rede123'
             driver 'com.mysql.cj.jdbc.Driver'
-            /*changeLogParameters([ myToken: 'myvalue',
-                                  second: 'secondValue'])*/
         }
-        /*
-        second {
-            changeLogFile 'second.groovy'
-            url 'jdbc:h2:db/liquibase_workshop;FILE_LOCK=NO'
-            username 'sa'
-            password ''
-            changeLogParameters([ myToken: 'myvalue',
-                                  second: 'secondValue'])
-        }*/
     }
 
-    // runList = project.ext.runList
-     runList = 'main'
-    //runList = 'main, second'
+    runList = 'main'
 }

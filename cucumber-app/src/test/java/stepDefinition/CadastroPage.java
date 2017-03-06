@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class CadastroPage {
     public static final String ADDRESS = "http://localhost";
-    public static final String PORT = ":8083";
+    public static final String PORT = ":9090";
     public static final String INDEX = "/index.xhtml";
 
     private WebDriver driver;
@@ -42,7 +42,8 @@ public class CadastroPage {
         WebElement salvar = driver.findElement(By.id("usuarioForm:salvar"));
 
         salvar.click();
-        //nomeInput.submit();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"usuarioForm:messages\"]/div/ul/li/span[1]")));
     }
 
     public String corpo(){
