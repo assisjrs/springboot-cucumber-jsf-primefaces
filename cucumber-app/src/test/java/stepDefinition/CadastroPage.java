@@ -58,24 +58,19 @@ public class CadastroPage {
     }
 
     public int quantidadeUsuarios(){
-        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"dataTable\"]")));
-
         return driver.findElements(By.xpath("//*[@id=\"dataTable_data\"]/tr")).size();
     }
 
     @Override
     public void finalize() throws Throwable {
         driver.close();
+        driver.quit();
 
         super.finalize();
     }
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public void setEmail(String email) {

@@ -1,3 +1,4 @@
+@txn
 Feature: Cadastrar um usuario
   Scenario: Deve ser possivel cadastrar um usuario no sistema
     Given o nome do usuario as "Assis" e o email "francisco.melo@concrete.com.br"
