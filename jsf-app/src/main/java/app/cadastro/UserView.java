@@ -33,6 +33,8 @@ public class UserView {
     public void salvar(){
         if(usuario == null || usuario.getNome() == null || "".equals(usuario.getNome().trim())){
             FacesContext.getCurrentInstance().addMessage(null,  new FacesMessage("Nome obrigatorio!"));
+        }else  if(usuario == null || usuario.getEmail() == null || "".equals(usuario.getEmail().trim())){
+            FacesContext.getCurrentInstance().addMessage(null,  new FacesMessage("Email obrigatorio!"));
         }else
         {
             try {

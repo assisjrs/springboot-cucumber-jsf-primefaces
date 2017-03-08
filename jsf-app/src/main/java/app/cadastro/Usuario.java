@@ -1,5 +1,6 @@
 package app.cadastro;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -44,6 +45,7 @@ public class Usuario {
     }
 
     private String nome;
+    @Column(unique =  true)
     private String email;
 
     public void setNome(String nome) {

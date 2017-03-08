@@ -1,46 +1,28 @@
 package stepDefinition;
 
-import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import database.Config;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by assis on 06/03/17.
+ * Created by CSSP on 08/03/2017.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { Config.class })
-@Transactional
-@TestExecutionListeners(value = { DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
-        TransactionDbUnitTestExecutionListener.class },
-        mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
-@DatabaseSetup("CadastrarUmUsuarioStep.xml")
-public class CadastrarUmUsuarioStep {
+public class CadastraUmUsuarioEValida {
     private CadastroPage cadastroPage;
 
     @Autowired
@@ -69,25 +51,24 @@ public class CadastrarUmUsuarioStep {
         final IDataSet dataSet = builder.build(new File("src/test/resources/CadastrarUmUsuarioStep.xml"));
         final DatabaseConnection databaseConnection = new DatabaseConnection(dbUnitDatabaseConnection.getConnection());
 
-       DatabaseOperation.DELETE_ALL.execute(databaseConnection, dataSet);
+        DatabaseOperation.DELETE_ALL.execute(databaseConnection, dataSet);
     }
 
-    @Given("^o nome do usuario as \"([^\"]*)\" e o email \"([^\"]*)\"$")
-    public void oNomeDoUsuarioAsEOEmail(String nome, String email) throws Throwable {
+
+    @Given("^o nome do usuario como \"([^\"]*)\" e email \"([^\"]*)\"$")
+    public void oNomeDoUsuarioComoEEmail(String nome, String email) throws Throwable {
         cadastroPage.setNome(nome);
         cadastroPage.setEmail(email);
     }
 
-    @When("^eu incluir o usuario Assis com email francisco.melo@concrete.com.br$")
+    @When("^cadastrar o usuario$")
     public void euCadastrarOUsuario() throws Throwable {
         cadastroPage.novoUsuario();
     }
 
-    @Then("^A lista de usuarios deve ter (\\d+) item$")
-    public void aListaDeUsuariosDeveTerItem(int quantidadeUsuariosCadastrados) throws Throwable {
-        assertEquals(quantidadeUsuariosCadastrados, cadastroPage.quantidadeUsuarios());
+    @Then("^verificar se o nome \"([^\"]*)\" e email \"([^\"]*)\" se encontra na lista$")
+    public void verificarSeONomeEEmailSeEncontraNaLista(String nome, String email) throws Throwable {
+        assertTrue(cadastroPage.corpo().contains(nome));
+        assertTrue(cadastroPage.corpo().contains(email));
     }
-
-
-
 }
