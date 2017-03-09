@@ -55,6 +55,7 @@ public class CadastroPage {
     }
 
     public String corpo(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dataTable")));
         return driver.getPageSource();
     }
 
@@ -66,7 +67,6 @@ public class CadastroPage {
     public void finalize() throws Throwable {
         driver.close();
         driver.quit();
-
         super.finalize();
     }
 
