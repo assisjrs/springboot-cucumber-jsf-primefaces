@@ -7,6 +7,7 @@ import cucumber.api.java.en.When;
 import database.Config;
 import database.SeleniumTestCase;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,10 +19,12 @@ import static org.junit.Assert.assertEquals;
  * Created by assis on 06/03/17.
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {Config.class})
+@ContextConfiguration(classes = Config.class)
 @Transactional
-@DatabaseSetup("src/test/resources/CadastrarUmUsuarioSteps.xml")
-@SeleniumTestCase(pageObject = CadastroPage.class)
+@DatabaseSetup("CadastrarUmUsuarioSteps.xml")
+@SeleniumTestCase(webDriver = ChromeDriver.class,
+                  url = "http://localhost:9090/index.xhtml",
+                  pageObject = CadastroPage.class)
 public class CadastrarUmUsuarioSteps {
     @Autowired
     private CadastroPage cadastroPage;

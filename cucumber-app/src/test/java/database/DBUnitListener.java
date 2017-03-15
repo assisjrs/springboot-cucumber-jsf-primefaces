@@ -37,7 +37,7 @@ public class DBUnitListener extends AbstractTestExecutionListener {
             final FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
             builder.setColumnSensing(true);
 
-            final IDataSet dataSet = builder.build(new File(annotation.value()[0]));
+            final IDataSet dataSet = builder.build(new File("src/test/resources/" + annotation.value()[0]));
             final DatabaseConnection databaseConnection = new DatabaseConnection(dbUnitDatabaseConnection.getConnection());
 
             databaseOperation(annotation.type()).execute(databaseConnection, dataSet);

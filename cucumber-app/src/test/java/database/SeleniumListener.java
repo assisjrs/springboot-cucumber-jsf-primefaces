@@ -1,7 +1,6 @@
 package database;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -28,10 +27,13 @@ public class SeleniumListener extends AbstractTestExecutionListener {
         final ApplicationContext context = testContext.getApplicationContext();
 
         if (context instanceof ConfigurableApplicationContext) {
-            webDriver = BeanUtils.instantiate(ChromeDriver.class);
-
             final SeleniumTestCase annotation = findAnnotation(testContext.getTestClass(), SeleniumTestCase.class);
+
+            webDriver = BeanUtils.instantiate(annotation.webDriver());
+
             final Object pageObject = PageFactory.initElements(webDriver, annotation.pageObject());
+
+            webDriver.get(annotation.url());
 
             register((ConfigurableApplicationContext) context, webDriver);
             register((ConfigurableApplicationContext) context, pageObject);

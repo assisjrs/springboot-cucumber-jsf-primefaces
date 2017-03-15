@@ -16,8 +16,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
  * Created by assis on 03/03/17.
  */
 public class CadastroPage {
-    public static final String ADDRESS = "http://localhost:9090/index.xhtml";
-
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -45,8 +43,6 @@ public class CadastroPage {
     }
 
     public void novoUsuario() throws InterruptedException {
-        driver.get(ADDRESS);
-
         novoUsuario.click();
 
         wait.until(visibilityOfElementLocated(id("usuarioForm")));
@@ -63,9 +59,9 @@ public class CadastroPage {
     }
 
     public String corpo(){
-        wait.until(visibilityOfElementLocated(id("dataTable")));
+        wait.withTimeout(15, SECONDS);
 
-        wait.withTimeout(10, SECONDS);
+        wait.until(visibilityOfElementLocated(id("dataTable")));
 
         return driver.getPageSource();
     }
