@@ -8,6 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by assis on 03/03/17.
@@ -56,6 +59,9 @@ public class CadastroPage {
 
     public String corpo(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dataTable")));
+
+        wait.withTimeout(5, SECONDS);
+
         return driver.getPageSource();
     }
 
