@@ -14,6 +14,7 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -28,7 +29,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by assis on 06/03/17.
@@ -39,8 +39,8 @@ import static org.junit.Assert.assertTrue;
 @TestExecutionListeners(value = { DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionDbUnitTestExecutionListener.class },
         mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
-@DatabaseSetup("CadastrarUmUsuarioStep.xml")
-public class CadastrarUmUsuarioStep {
+@DatabaseSetup("CadastrarUmUsuarioSteps.xml")
+public class CadastrarUmUsuarioSteps {
     private CadastroPage cadastroPage;
 
     @Autowired
@@ -51,12 +51,14 @@ public class CadastrarUmUsuarioStep {
         final FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
         builder.setColumnSensing(true);
 
-        final IDataSet dataSet = builder.build(new File("src/test/resources/CadastrarUmUsuarioStep.xml"));
+        final IDataSet dataSet = builder.build(new File("src/test/resources/CadastrarUmUsuarioSteps.xml"));
         final DatabaseConnection databaseConnection = new DatabaseConnection(dbUnitDatabaseConnection.getConnection());
 
         DatabaseOperation.CLEAN_INSERT.execute(databaseConnection, dataSet);
 
-        cadastroPage = new CadastroPage();
+        System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
+
+        cadastroPage = new CadastroPage(new ChromeDriver());
     }
 
     @After
@@ -66,7 +68,7 @@ public class CadastrarUmUsuarioStep {
         final FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
         builder.setColumnSensing(true);
 
-        final IDataSet dataSet = builder.build(new File("src/test/resources/CadastrarUmUsuarioStep.xml"));
+        final IDataSet dataSet = builder.build(new File("src/test/resources/CadastrarUmUsuarioSteps.xml"));
         final DatabaseConnection databaseConnection = new DatabaseConnection(dbUnitDatabaseConnection.getConnection());
 
        DatabaseOperation.DELETE_ALL.execute(databaseConnection, dataSet);

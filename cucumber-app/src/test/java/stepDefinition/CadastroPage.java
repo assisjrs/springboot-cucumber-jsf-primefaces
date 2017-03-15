@@ -3,12 +3,8 @@ package stepDefinition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -26,10 +22,8 @@ public class CadastroPage {
     private String nome;
     private String email;
 
-    public CadastroPage(){
-        System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
-
-        driver = new ChromeDriver();
+    public CadastroPage(WebDriver driver){
+        this.driver = driver;
         wait = new WebDriverWait(driver, 60000);
     }
 
@@ -60,7 +54,7 @@ public class CadastroPage {
     public String corpo(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dataTable")));
 
-        wait.withTimeout(5, SECONDS);
+        wait.withTimeout(10, SECONDS);
 
         return driver.getPageSource();
     }

@@ -1,28 +1,26 @@
 package stepDefinition;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.junit.Assert;
+import org.openqa.selenium.chrome.ChromeDriver;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
  * Created by CSSP on 08/03/2017.
  */
-public class CadastrarUsuarioEmailStep {
+public class CadastrarUsuarioEmailSteps {
 
     private CadastroPage cadastroPage;
 
-
-
     @Before
     public void initWebdriver() {
-        cadastroPage = new CadastroPage();
+        System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
+
+        cadastroPage = new CadastroPage(new ChromeDriver());
     }
 
     @After
@@ -46,6 +44,4 @@ public class CadastrarUsuarioEmailStep {
     public void oSistemaDeveExibirAMensagemDeErro(String mensagem) throws Throwable {
         assertTrue(cadastroPage.mensagemErro().contains(mensagem));
     }
-
-
 }
