@@ -21,8 +21,6 @@ import static org.springframework.core.annotation.AnnotationUtils.findAnnotation
 public class DBUnitListener extends AbstractTestExecutionListener {
     private DataSource dbUnitDatabaseConnection;
 
-    private boolean isDbUnit = false;
-
     @Override
     public void beforeTestClass(final TestContext testContext) throws Exception {
         final ApplicationContext context = testContext.getApplicationContext();
@@ -32,30 +30,37 @@ public class DBUnitListener extends AbstractTestExecutionListener {
 
             if (annotation == null) return;
 
-            isDbUnit = true;
+            final String connection = annotation.connection().isEmpty()? "dbUnitDatabaseConnection" : annotation.connection();
 
-            dbUnitDatabaseConnection = context.getBean("dbUnitDatabaseConnection", DataSource.class);
+            dbUnitDatabaseConnection = context.getBean(connection, DataSource.class);
 
             final FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
             builder.setColumnSensing(true);
 
-            final IDataSet dataSet = builder.build(new File("src/test/resources/CadastrarUmUsuarioSteps.xml"));
+            final IDataSet dataSet = builder.build(new File(annotation.value()[0]));
             final DatabaseConnection databaseConnection = new DatabaseConnection(dbUnitDatabaseConnection.getConnection());
 
-            DatabaseOperation.CLEAN_INSERT.execute(databaseConnection, dataSet);
+            databaseOperation(annotation.type()).execute(databaseConnection, dataSet);
         }
     }
 
-    @Override
-    public void afterTestClass(TestContext testContext) throws Exception {
-        if(!isDbUnit) return;
-
-        final FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
-        builder.setColumnSensing(true);
-
-        final IDataSet dataSet = builder.build(new File("src/test/resources/CadastrarUmUsuarioSteps.xml"));
-        final DatabaseConnection databaseConnection = new DatabaseConnection(dbUnitDatabaseConnection.getConnection());
-
-        DatabaseOperation.DELETE_ALL.execute(databaseConnection, dataSet);
+    private DatabaseOperation databaseOperation(com.github.springtestdbunit.annotation.DatabaseOperation databaseOperation){
+        switch (databaseOperation) {
+            case UPDATE:
+                return DatabaseOperation.UPDATE;
+            case INSERT:
+                return DatabaseOperation.INSERT;
+            case REFRESH:
+                return DatabaseOperation.REFRESH;
+            case DELETE:
+                return DatabaseOperation.DELETE;
+            case DELETE_ALL:
+                return DatabaseOperation.DELETE_ALL;
+            case TRUNCATE_TABLE:
+                return DatabaseOperation.TRUNCATE_TABLE;
+            case CLEAN_INSERT:
+            default:
+                return DatabaseOperation.CLEAN_INSERT;
+        }
     }
 }

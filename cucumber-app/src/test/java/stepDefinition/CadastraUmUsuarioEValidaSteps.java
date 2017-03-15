@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = { Config.class })
 @Transactional
-@DatabaseSetup("CadastrarUmUsuarioSteps.xml")
+@DatabaseSetup("src/test/resources/CadastrarUmUsuarioSteps.xml")
 @SeleniumTestCase(pageObject = CadastroPage.class)
 public class CadastraUmUsuarioEValidaSteps {
     @Autowired
