@@ -74,14 +74,6 @@ public class CadastroPage {
         return usuarios.size();
     }
 
-    @Override
-    public void finalize() throws Throwable {
-        driver.close();
-        driver.quit();
-
-        super.finalize();
-    }
-
     public void setNome(String nome) {
         this.nome = nome;
     }

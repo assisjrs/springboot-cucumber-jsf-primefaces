@@ -13,9 +13,13 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -47,6 +51,22 @@ public class CadastraUmUsuarioEValidaSteps {
     @Autowired
     private DataSource dbUnitDatabaseConnection;
 
+    private WebDriver webDriver;
+
+    @Before
+    public void beforeClass(){
+        if (webDriver == null)
+            webDriver = BeanUtils.instantiate(ChromeDriver.class);
+    }
+
+    @After
+    public void afterClass(){
+        if (webDriver != null) {
+            webDriver.close();
+            webDriver.quit();
+        }
+    }
+
     @Before
     public void initWebdriver() throws SQLException, DatabaseUnitException, IOException {
         final FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
@@ -57,13 +77,11 @@ public class CadastraUmUsuarioEValidaSteps {
 
         DatabaseOperation.CLEAN_INSERT.execute(databaseConnection, dataSet);
 
-        cadastroPage = PageFactory.initElements(new ChromeDriver(), CadastroPage.class);
+        cadastroPage = PageFactory.initElements(webDriver, CadastroPage.class);
     }
 
     @After
     public void destroyWebdriver() throws Throwable {
-        cadastroPage.finalize();
-
         final FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
         builder.setColumnSensing(true);
 
