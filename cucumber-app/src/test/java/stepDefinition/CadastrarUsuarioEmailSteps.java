@@ -1,46 +1,23 @@
 package stepDefinition;
 
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.PageFactory;
-import org.springframework.beans.BeanUtils;
+import database.SeleniumTestCase;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertTrue;
 
 /**
  * Created by CSSP on 08/03/2017.
  */
+@RunWith(SpringRunner.class)
+@SeleniumTestCase(pageObject = CadastroPage.class)
 public class CadastrarUsuarioEmailSteps {
+    @Autowired
     private CadastroPage cadastroPage;
-
-    private WebDriver webDriver;
-
-    @Before
-    public void beforeClass(){
-        if (webDriver == null)
-            webDriver = BeanUtils.instantiate(ChromeDriver.class);
-    }
-
-    @After
-    public void afterClass(){
-        if (webDriver != null) {
-            webDriver.close();
-            webDriver.quit();
-        }
-    }
-
-    @Before
-    public void initWebdriver() {
-        cadastroPage = PageFactory.initElements(webDriver, CadastroPage.class);
-    }
 
     @Given("^o nome do usuario como \"([^\"]*)\" e email como \"([^\"]*)\"$")
     public void oNomeDoUsuarioComoEEmailComo(String nome, String email) throws Throwable {
