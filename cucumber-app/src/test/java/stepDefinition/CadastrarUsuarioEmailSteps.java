@@ -6,6 +6,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 
 import static org.junit.Assert.assertTrue;
 
@@ -18,9 +19,7 @@ public class CadastrarUsuarioEmailSteps {
 
     @Before
     public void initWebdriver() {
-        System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
-
-        cadastroPage = new CadastroPage(new ChromeDriver());
+        cadastroPage = PageFactory.initElements(new ChromeDriver(), CadastroPage.class);
     }
 
     @After

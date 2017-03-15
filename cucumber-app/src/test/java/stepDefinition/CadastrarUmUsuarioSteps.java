@@ -15,6 +15,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -56,9 +57,7 @@ public class CadastrarUmUsuarioSteps {
 
         DatabaseOperation.CLEAN_INSERT.execute(databaseConnection, dataSet);
 
-        System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
-
-        cadastroPage = new CadastroPage(new ChromeDriver());
+        cadastroPage = PageFactory.initElements(new ChromeDriver(), CadastroPage.class);
     }
 
     @After

@@ -1,20 +1,22 @@
 package stepDefinition;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.openqa.selenium.By.id;
+import static org.openqa.selenium.By.xpath;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 /**
  * Created by assis on 03/03/17.
  */
 public class CadastroPage {
-    public static final String ADDRESS = "http://localhost";
-    public static final String PORT = ":9090";
-    public static final String INDEX = "/index.xhtml";
+    public static final String ADDRESS = "http://localhost:9090/index.xhtml";
 
     private WebDriver driver;
     private WebDriverWait wait;
@@ -22,37 +24,46 @@ public class CadastroPage {
     private String nome;
     private String email;
 
+    @FindBy(xpath = "//*[contains(@id,'usuarioForm')]/tbody/tr[2]/td[2]/input")
+    private WebElement nomeInput;
+
+    @FindBy(xpath = "//*[contains(@id,'usuarioForm')]/tbody/tr[3]/td[2]/input")
+    private WebElement emailInput;
+
+    @FindBy(xpath = "//*[contains(text(),'Salvar')]")
+    private WebElement salvar;
+
+    @FindBy(linkText = "Novo Usuário")
+    private WebElement novoUsuario;
+
+    @FindBy(xpath = "//*[@id=\"dataTable_data\"]/tr")
+    private List<WebElement> usuarios;
+
     public CadastroPage(WebDriver driver){
         this.driver = driver;
         wait = new WebDriverWait(driver, 60000);
     }
 
     public void novoUsuario() throws InterruptedException {
-        driver.get(ADDRESS+PORT+INDEX);
+        driver.get(ADDRESS);
 
-        WebElement link = driver.findElement(By.linkText("Novo Usuário"));
-        link.click();
+        novoUsuario.click();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("usuarioForm")));
+        wait.until(visibilityOfElementLocated(id("usuarioForm")));
 
-        final WebElement nomeInput = driver.findElement(By.xpath("//*[contains(@id,'usuarioForm')]/tbody/tr[2]/td[2]/input"));
         nomeInput.sendKeys(nome);
-
-        final WebElement emailInput = driver.findElement(By.xpath("//*[contains(@id,'usuarioForm')]/tbody/tr[3]/td[2]/input"));
         emailInput.sendKeys(email);
-
-        WebElement salvar = driver.findElement(By.xpath("//*[contains(text(),'Salvar')]"));
 
         salvar.click();
     }
 
     public String mensagemErro(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"usuarioForm:messages\"]/div/ul/li/span[1]")));
+        wait.until(visibilityOfElementLocated(xpath("//*[@id=\"usuarioForm:messages\"]/div/ul/li/span[1]")));
         return corpo();
     }
 
     public String corpo(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dataTable")));
+        wait.until(visibilityOfElementLocated(id("dataTable")));
 
         wait.withTimeout(10, SECONDS);
 
@@ -60,13 +71,14 @@ public class CadastroPage {
     }
 
     public int quantidadeUsuarios(){
-        return driver.findElements(By.xpath("//*[@id=\"dataTable_data\"]/tr")).size();
+        return usuarios.size();
     }
 
     @Override
     public void finalize() throws Throwable {
         driver.close();
         driver.quit();
+
         super.finalize();
     }
 
