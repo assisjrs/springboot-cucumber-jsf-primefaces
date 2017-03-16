@@ -59,7 +59,7 @@ public class CadastroPage {
     }
 
     public String corpo(){
-        wait.withTimeout(15, SECONDS);
+        wait.withTimeout(20, SECONDS);
 
         wait.until(visibilityOfElementLocated(id("dataTable")));
 

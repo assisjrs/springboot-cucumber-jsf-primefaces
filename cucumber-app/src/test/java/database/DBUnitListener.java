@@ -1,10 +1,10 @@
 package database;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.operation.DefaultDatabaseOperationLookup;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.operation.DatabaseOperation;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.TestContext;
@@ -40,27 +40,7 @@ public class DBUnitListener extends AbstractTestExecutionListener {
             final IDataSet dataSet = builder.build(new File("src/test/resources/" + annotation.value()[0]));
             final DatabaseConnection databaseConnection = new DatabaseConnection(dbUnitDatabaseConnection.getConnection());
 
-            databaseOperation(annotation.type()).execute(databaseConnection, dataSet);
-        }
-    }
-
-    private DatabaseOperation databaseOperation(com.github.springtestdbunit.annotation.DatabaseOperation databaseOperation){
-        switch (databaseOperation) {
-            case UPDATE:
-                return DatabaseOperation.UPDATE;
-            case INSERT:
-                return DatabaseOperation.INSERT;
-            case REFRESH:
-                return DatabaseOperation.REFRESH;
-            case DELETE:
-                return DatabaseOperation.DELETE;
-            case DELETE_ALL:
-                return DatabaseOperation.DELETE_ALL;
-            case TRUNCATE_TABLE:
-                return DatabaseOperation.TRUNCATE_TABLE;
-            case CLEAN_INSERT:
-            default:
-                return DatabaseOperation.CLEAN_INSERT;
+            new DefaultDatabaseOperationLookup().get(annotation.type()).execute(databaseConnection, dataSet);
         }
     }
 }
