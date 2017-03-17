@@ -55,8 +55,6 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.1.4.RELEASE'
 
     compile 'mysql:mysql-connector-java:6.0.5'
-
-    compile 'org.javalite:activejdbc:1.4.13.j7'
     compile 'org.liquibase:liquibase-core:3.4.2'
 }
 
