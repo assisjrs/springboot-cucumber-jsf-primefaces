@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
 import static org.openqa.selenium.By.id;
 import static org.openqa.selenium.By.xpath;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
@@ -53,28 +54,19 @@ public class CadastroPage {
         salvar.click();
     }
 
-    public String mensagemErro(){
-        wait.until(visibilityOfElementLocated(xpath("//*[@id=\"usuarioForm:messages\"]/div/ul/li/span[1]")));
-        return corpo();
-    }
-
-    public String corpo(){
-        wait.withTimeout(20, SECONDS);
-
-        wait.until(visibilityOfElementLocated(id("dataTable")));
-
-        return driver.getPageSource();
-    }
-
-    public int quantidadeUsuarios(){
-        return usuarios.size();
-    }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public CadastroPageAssert assertThat() {
+        return new CadastroPageAssert(this);
+    }
+
+    public List<WebElement> getUsuarios() {
+        return usuarios;
     }
 }

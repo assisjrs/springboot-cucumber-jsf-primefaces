@@ -25,7 +25,7 @@ public class Config {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost/leiloes?nullCatalogMeansCurrent=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false");
         dataSource.setUsername("root");
-        dataSource.setPassword("cs!rede123");
+        dataSource.setPassword("1234");
 
         return dataSource;
     }

@@ -32,6 +32,6 @@ public class CadastroSteps {
 
     @Then("^O usuario deve receber a seguinte mensagem de erro \"([^\"]*)\"$")
     public void oUsuarioDeveReceberASeguinteMensagemDeErro(String mensagemDeErro) throws Throwable {
-        assertTrue(cadastroPage.mensagemErro().contains(mensagemDeErro));
+        cadastroPage.assertThat().verificaSeAMensagemSeEncontraNaPagina(mensagemDeErro);
     }
 }

@@ -33,6 +33,6 @@ public class CadastrarUsuarioEmailSteps {
 
     @Then("^O sistema deve exibir a mensagem de erro \"([^\"]*)\"$")
     public void oSistemaDeveExibirAMensagemDeErro(String mensagem) throws Throwable {
-        assertTrue(cadastroPage.mensagemErro().contains(mensagem));
+        cadastroPage.assertThat().verificaSeAMensagemSeEncontraNaPagina(mensagem);
     }
 }

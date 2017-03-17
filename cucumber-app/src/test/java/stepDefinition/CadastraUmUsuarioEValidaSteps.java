@@ -42,7 +42,6 @@ public class CadastraUmUsuarioEValidaSteps {
 
     @Then("^verificar se o nome \"([^\"]*)\" e email \"([^\"]*)\" se encontra na lista$")
     public void verificarSeONomeEEmailSeEncontraNaLista(String nome, String email) throws Throwable {
-        assertTrue(cadastroPage.corpo().contains(nome));
-        assertTrue(cadastroPage.corpo().contains(email));
+        cadastroPage.assertThat().verificaSeAMensagemSeEncontraNaPagina(nome, email);
     }
 }

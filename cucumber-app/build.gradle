@@ -51,6 +51,7 @@ dependencies {
     compile 'org.springframework:spring-tx:4.3.7.RELEASE'
     compile 'org.springframework:spring-context:4.3.7.RELEASE'
 
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.2.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.1.4.RELEASE'
 
     compile 'mysql:mysql-connector-java:6.0.5'
@@ -65,7 +66,7 @@ liquibase {
             changeLogFile 'src/test/resources/bank_schema.xml'
             url 'jdbc:mysql://localhost:3306/leiloes?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false'
             username 'root'
-            password 'cs!rede123'
+            password '1234'
             driver 'com.mysql.cj.jdbc.Driver'
         }
     }

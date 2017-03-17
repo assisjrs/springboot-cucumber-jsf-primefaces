@@ -42,6 +42,6 @@ public class CadastrarUmUsuarioSteps {
 
     @Then("^A lista de usuarios deve ter (\\d+) item$")
     public void aListaDeUsuariosDeveTerItem(int quantidadeUsuariosCadastrados) throws Throwable {
-        assertEquals(quantidadeUsuariosCadastrados, cadastroPage.quantidadeUsuarios());
+        cadastroPage.assertThat().quantidaDeUsuariosCadastradosNaLista(quantidadeUsuariosCadastrados);
     }
 }
